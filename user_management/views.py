@@ -21,6 +21,12 @@ def signup(request):
         username= data.get('username')
         password= data.get('password')
 
+        # check username already exists or not
+        if User.objects.filter(username==username).exists():
+            return  JsonResponse({
+                'message': 'Username Already Exists'
+            })
+
         #store the data into user table which inbuilt in sqlite database
         User.objects.create_user(
             username = username,
